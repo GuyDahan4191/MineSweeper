@@ -108,7 +108,7 @@ function onCellClicked(elCell, i, j) {
         // onTimer
     }
 
-    expandShown(gBoard, elCell, i, j)
+    // expandShown(gBoard, elCell, i, j)
     var cell = gBoard[i][j]
     if (cell.isShown || cell.isMarked) return
 
@@ -122,8 +122,8 @@ function onCellClicked(elCell, i, j) {
         gGame.shownCount--
         renderBoard()
         renderLives()
-        checkGameOver()
     }
+    checkGameOver()
     renderBoard()
 }
 
@@ -185,7 +185,7 @@ function size(elSize) {
     }
     if (elSize === 8) {
         gSize = 8
-        gMines = 2
+        gMines = 14
     }
     if (elSize === 12) {
         gSize = 12
@@ -271,21 +271,22 @@ function reset() {
     renderLives()
 }
 
-function expandShown(board, elCell, rowIdx, colIdx) {
-    if (board[rowIdx][colIdx].minesAroundCount !== 0) return
-    console.log('board[rowIdx][colIdx].minesAroundCount:', board[rowIdx][colIdx].minesAroundCount)
+// function expandShown(board, elCell, rowIdx, colIdx) {
+//     if (board[rowIdx][colIdx].minesAroundCount !== 0) return
+//     console.log('board[rowIdx][colIdx].minesAroundCount:', board[rowIdx][colIdx].minesAroundCount)
 
-    for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
-        if (i < 0 || i >= board.length) continue
-        for (var j = colIdx - 1; j <= colIdx + 1; j++) {
-            if (i === rowIdx && j === colIdx) continue
-            if (j < 0 || j >= board[0].length) continue
-            var currCell = board[i][j]
-            const elCellToOpen = document.querySelector(`.cell[data-i="${i}"][data-j="${j}"]`)
-            elCellToOpen.isShown = true
-        }
-    }
-}
+//     for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
+//         if (i < 0 || i >= board.length) continue
+//         for (var j = colIdx - 1; j <= colIdx + 1; j++) {
+//             if (i === rowIdx && j === colIdx) continue
+//             if (j < 0 || j >= board[0].length) continue
+//             var currCell = board[i][j]
+//             const elCellToOpen = document.querySelector(`.cell[data-i="${i}"][data-j="${j}"]`)
+
+//             elCellToOpen.isShown = true
+//         }
+//     }
+// }
 
 
 // function Hint() {
