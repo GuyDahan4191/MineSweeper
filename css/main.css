@@ -1,0 +1,89 @@
+body {
+    background: lightsalmon font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    text-align: center;
+}
+
+.smiley {
+    height: 50Px;
+}
+
+.smiley:hover {
+    cursor: pointer;
+
+}
+
+.size {
+    height: 50Px;
+    width: 70px;
+    font-size: 15Px;
+    background-color: rgb(72, 201, 109);
+    border-radius: 20%;
+    margin-top: 10Px;
+    margin-bottom: 10Px;
+    text-align: center;
+    border-width: 1Px;
+    box-shadow: 0 5px 5px 0 black, 0 5px 5px 0 red
+}
+
+.lives {
+    text-align: center;
+}
+
+table {
+    margin: auto;
+    border-collapse: separate;
+    border-spacing: 3px;
+    /* border-width: 10px; */
+    border-color: blue;
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    border-radius: 2px;
+    background-color: coral;
+    text-align: center;
+}
+
+.shown {
+    background-color: cadetblue;
+}
+
+.mine {
+    background-color: red;
+}
+
+.btn-hint {}
+
+h3 {
+    text-align: center;
+}
+
+.modal {
+    display: none;
+    border: solid 3px grey;
+    width: 300px;
+    height: 200px;
+    background-color: rgb(94, 13, 247);
+    color: black;
+    font-size: 32px;
+
+    position: absolute;
+    top: 200px;
+    left: calc(50% - 150px);
+}
+
+.restart-btn {
+    margin-top: 20px;
+    background-color: black;
+    color: rgb(230, 221, 221);
+    padding: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #00f2ff;
+    cursor: pointer;
+    font-weight: bold;
+}
