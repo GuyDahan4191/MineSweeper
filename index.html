@@ -7,35 +7,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MineSweaper</title>
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="img" href="img/" />
 </head>
 
 <body onload="onInit()">
-    <h1>MINE SWEEPER</h1>
-    <button class="size" onclick="size(4)">4 X 4</button>
-    <button class="size" onclick="size(8)">8 X 8</button>
-    <button class="size" onclick="size(12)">12 X 12</button>
-    <div>
-        <h3 class="lives"><span>3</span> lives left</h3>
-        <span class="smiley" onclick="reset()">😁</span>
-        <!-- <span class="hints"></span> -->
+    <div class="box">
+        <h1>MINE SWEEPER</h1>
+        <button class="dark-mode" onclick="onDarkMode()"></button>
+        <br>
+        <button class="size" onclick="size(4)">4 X 4</button>
+        <button class="size" onclick="size(8)">8 X 8</button>
+        <button class="size" onclick="size(12)">12 X 12</button>
+        <div>
+            <h3 class="lives"><span>🤎🤎🤎</span> lives left</h3>
+            <span class="smiley" onclick="reset()">😁</span>
+
+        </div>
+        <div>
+            <div class="timer">Game Time:
+                <br>
+                <span class="timer">0.00</span>
+            </div>
+            <div class="flags"><span>0/0</span>
+            </div>
+            <div class="undo" onclick="onUndo(this)">
+            </div>
+        </div>
+        <table>
+            <tbody></tbody>
+        </table>
+        <div class="div-hint">
+            <span class="btn-hint" onclick="onHint(this)">💡</span>
+            <span class="btn-hint" onclick="onHint(this)">💡</span>
+            <span class="btn-hint" onclick="onHint(this)">💡</span>
+        </div>
+        <div>
+            <button class="btn-mega-hint" onclick="onMegaHint(this)">Mega Hint</button>
+            <button class="btn-mega-hint" onclick="onSafeClick(this)"><span>3</span> Safe left</button>
+        </div>
+
+        <button class="btn-Exterminator" onclick="onExterminator(this)">Exterminator</button>
+
+        <footer>By Guy Dahan</footer>
+        <script src="js/main.js"></script>
+        <script src="js/utils.js"></script>
     </div>
-
-    <h3 class="flags"><span>0/0</span>
-    </h3>
-    <table>
-        <tbody></tbody>
-    </table>
-
-    <button class="btn-hint" data-i="" data-j="" onclick="onHint()">Hint</button>
 
     <div class="modal">
         <h3 class="msg"></h3>
         <button class="restart-btn" onclick="reset()">Play Again</button>
     </div>
 
-    <h3>Guy Dahan</h3>
-    <script src="js/main.js"></script>
-    <script src="js/utils.js"></script>
+
 </body>
 
 </html>

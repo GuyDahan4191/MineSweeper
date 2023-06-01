@@ -27,5 +27,17 @@ function closeModal() {
 function renderTimer() {
     var gElTimer = document.querySelector('.timer span')
     // console.log('gElTimer:', gElTimer)
-    gElTimer.innerText = gTimer.toFixed(3)
+    gElTimer.innerText = gTimer.toFixed(2)
+}
+
+function startTimer() {
+    sec = 0.01
+    gInterval = setInterval(() => {
+        gTimer += sec
+        renderTimer()
+    }, 10)
+}
+
+function posToSelect(pos) {
+    return `.cell-${pos.i}-${pos.j}`
 }
