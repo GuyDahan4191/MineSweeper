@@ -3,14 +3,14 @@ body {
     font-family: space, Helvetica, sans-serif;
     color: black;
     text-align: center;
-    background-image: url('/img/background-numbers4.jpg');
+    background-image: url('../img/background-numbers4.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 
 }
 
 .dark-mode {
-    background-image: url('/img/darkMode2.jpg');
+    background-image: url('../img/darkMode2.jpg');
     background-size: cover;
     background-position: center;
     background-image: cover;
@@ -75,7 +75,7 @@ body {
 }
 
 .undo {
-    background-image: url('/img/undo.jpg');
+    background-image: url('../img/undo.jpg');
     background-size: cover;
     background-position: center;
     background-image: cover;
