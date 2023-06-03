@@ -18,6 +18,8 @@
         <button class="size" onclick="size(4)">4 X 4</button>
         <button class="size" onclick="size(8)">8 X 8</button>
         <button class="size" onclick="size(12)">12 X 12</button>
+        <br>
+        <!-- <button class="manually" onclick="onSetMinesManually()">Manually</button> -->
         <div>
             <h3 class="lives"><span>🤎🤎🤎</span> lives left</h3>
             <span class="smiley" onclick="reset()">😁</span>
@@ -36,14 +38,12 @@
         <table>
             <tbody></tbody>
         </table>
-        <div class="div-hint">
-            <span class="btn-hint" onclick="onHint(this)">💡</span>
-            <span class="btn-hint" onclick="onHint(this)">💡</span>
-            <span class="btn-hint" onclick="onHint(this)">💡</span>
-        </div>
+        <button class="btn-hint" onclick="onHint(this)">Hints: <span class="hint1">💡</span> <span
+                class="hint2">💡</span>
+            <span class="hint3">💡</span></button>
         <div>
-            <button class="btn-mega-hint" onclick="onMegaHint(this)">Mega Hint</button>
-            <button class="btn-mega-hint" onclick="onSafeClick(this)"><span>3</span> Safe left</button>
+            <button class="btn-mega-hint" onclick="onMegaHint()">Mega<br>Hint</button>
+            <button class="btn-safe-click" onclick="onSafeClick(this)">Safe Click<br><span>3</span> left</button>
         </div>
 
         <button class="btn-Exterminator" onclick="onExterminator(this)">Exterminator</button>

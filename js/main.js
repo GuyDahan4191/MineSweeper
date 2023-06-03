@@ -26,9 +26,11 @@ var gGame = {
     markedCount: 0,
     secsPassed: 0,
     isOver: false,
-    safeClick: 3,
+    safeClicks: 3,
     isDarkMode: false,
-    allPlays: []
+    allPlays: [],
+    isManually: false,
+    minesCount: 0
 }
 
 function onInit() {
@@ -104,15 +106,29 @@ function setMines(rowInx, colInx) {
     }
 }
 
-function onCellClicked(elCell, i, j) {
+// function onSetMinesManually() {
+//     reset()
+//     gGame.isManually = true
+// }
 
+function onCellClicked(elCell, i, j) {
     if (gGame.isOver) return
+
+    // // if manualy mode is on:
+    // if ((gGame.isManually) && (gGame.minesCount !== gMines)) {
+    //     gBoard[i][j].innerText = 'MINE'
+    //     gBoard[i][j].isShown = true
+    //     gGame.minesCount++
+    //     console.log('hi:')
+    //     return
+    // }
 
     // first click
     if (!gGame.isOn) {
-        startTimer()
         gGame.isOn = true
-        setMines(i, j)
+        startTimer()
+        if (!gGame.isManually) setMines(i, j)
+        console.log('hi2:')
         countNegsMinesAllBoard()
     }
 
@@ -125,7 +141,7 @@ function onCellClicked(elCell, i, j) {
         isMegaHint(i, j)
         return
     }
-
+    allGameMoves(gBoard)
     expandShown(i, j)
 
     var cell = gBoard[i][j]
@@ -153,7 +169,7 @@ function onCellMarked(ev, elCell, i, j) {
 
     // prevent menu on right key 
     ev.preventDefault()
-
+    allGameMoves(gBoard)
     if (gGame.isOver) return
 
     var curCell = gBoard[i][j]
@@ -193,6 +209,7 @@ function isMegaHint(i, j) {
         var rowInxEnd = i
         var colInxEnd = j
         hint(gRowInxStart, gColInxStart, rowInxEnd, colInxEnd)
+        renderMegaHintBtn()
     }
     return
 }
@@ -289,6 +306,38 @@ function renderSmiley() {
     }
 }
 
+//count dwon the safe clicks
+function renderSafeCLickCount() {
+    var elSafeClickCount = document.querySelector('.btn-safe-click span')
+    elSafeClickCount.innerText = `${gGame.safeClicks}`
+
+    var elSafeClick = document.querySelector('.btn-safe-click')
+    if (elSafeClickCount.innerText === '0') elSafeClick.style.backgroundColor = 'darkslategray'
+    else elSafeClick.style.backgroundColor = 'lightblue'
+}
+
+function renderMegaHintBtn() {
+    var elBtn = document.querySelector('.btn-mega-hint')
+
+    if (gGame.isOn) elBtn.style.backgroundColor = 'darkslategray'
+    else elBtn.style.backgroundColor = 'lightblue'
+}
+
+function renderHints() {
+    if (gGame.isOn) {
+        var elHint = document.querySelector(`.hint${gHints + 1}`)
+        setTimeout(() => {
+            elHint.innerText = ''
+        }, 1000)
+    } else {
+        for (var i = 1; i <= 3; i++) {
+            var elHint = document.querySelector(`.hint${i}`)
+            elHint.innerText = '💡'
+            elHint.style.backgroundColor = ''
+        }
+    }
+}
+
 function checkGameOver() {
     // check WIN
     if (gLives !== 0) {
@@ -324,19 +373,18 @@ function onHint(elHint) {
     // if no more hints or hint clicked
     if ((gHints === 0) || (gIsHint)) return
 
+    var elHint = document.querySelector(`.hint${gHints}`)
     elHint.style.backgroundColor = 'yellow'
-    setTimeout(() => {
-        elHint.style.display = 'none'
-        renderBoard()
-    }, 2000)
+    // elHint.style.backgroundColor = 'yellow'
+    // setTimeout(() => {
+    //     elHint.style.display = 'none'
+    //     renderBoard()
+    // }, 2000)
     gIsHint = true
 }
 
 function onMegaHint(elCell) {
     // if Mega hint clicked
-    setTimeout(() => {
-        elCell.style.backgroundColor = 'darkslategray'
-    }, 3000)
     if ((gIsMegaHint) || gMegaHintCount === 0) return
     console.log('MEGA HINT')
     gIsMegaHint = true
@@ -365,6 +413,7 @@ function hint(rowIdxStart, colIdxStart, rowIdxEnd = rowIdxStart + 1, colIdxEnd =
     if (gIsHint) {
         gIsHint = false
         gHints--
+        renderHints()
     } else gIsMegaHint = false
 }
 
@@ -375,7 +424,10 @@ function reset() {
         markedCount: 0,
         secsPassed: 0,
         isOver: false,
-        safeClick: 3
+        safeClicks: 3,
+        allPlays: [],
+        isManualy: false,
+        minesCount: 0
     }
     gLives = 3
     gHints = 3
@@ -385,7 +437,10 @@ function reset() {
     sec = 0
     gInterval = 0
     gTimer = 0
+    renderHints()
     renderSmiley()
+    renderMegaHintBtn()
+    renderSafeCLickCount()
 
     // closeModal()
     onInit()
@@ -436,8 +491,9 @@ function checkOpenAll() {
 
 // dont know why... but it works only when game is over
 function onSafeClick() {
-    if (gGame.safeClick <= 0) return
+    if (gGame.safeClicks <= 0) return
     var safe = true
+    console.log('safe:', safe)
     while (safe) {
         const randRowIndex = getRandomInt(0, gSize)
         const randColIndex = getRandomInt(0, gSize)
@@ -446,19 +502,19 @@ function onSafeClick() {
         // check if this cell with mind or shown or marked
         if ((randCell.isMine) || (randCell.isShown) || (randCell.isMarked)) safe
         else {
+            gGame.safeClicks--
+            renderSafeCLickCount()
             var elClass = posToSelect({ i: randRowIndex, j: randColIndex })
-            // console.log('elClass:', elClass)
             var elRandCell = document.querySelector(elClass)
-            console.log('elRandCell:', elRandCell)
             elRandCell.classList.add('highlight')
-            renderBoard()
             setTimeout(() => {
                 elRandCell.classList.remove('highlight')
                 renderBoard()
-            }, 2500)
+            }, 1500)
             safe = false
             return
         }
+        renderBoard()
     }
 }
 
@@ -483,15 +539,56 @@ function expandShown(rowIdx, colIdx) {
     }
 }
 
-// started but didn't finished...
-function onUndo(elUndo) {
+function allGameMoves() {
 
-    // if (gGame.allPlays.length <= 0) return
-    // var lestMove = gGame.allPlays.pop(0)
-    console.log(`i'm not working for the moment... or for good`)
+    const currBoard = []
+    for (var i = 0; i < gSize; i++) {
+        currBoard[i] = []
+        for (var j = 0; j < gSize; j++) {
+            currBoard[i][j] = {
+                isShown: gBoard[i][j].isShown,
+                isMine: gBoard[i][j].isMine,
+                minesAroundCount: gBoard[i][j].minesAroundCount
+            }
+        }
+    }
+    var currLives = gLives
+    var currFlagAndMine = gFlagAndMine
+    var currMines = gMines
+    var currgGame = gGame
+
+    var currMoves = [currBoard, currLives, currFlagAndMine, currMines, currgGame]
+    gGame.allPlays.push(currMoves)
 }
 
-// function Exterminator() {
+function onUndo(elUndo) {
+    if ((gGame.allPlays.length <= 0) || (gGame.isOver)) {
+        // document.querySelector(elUndo).
+        return
+    }
+
+    var lastMove = gGame.allPlays.pop(0)
+    console.log('lastMove:', lastMove)
+    gBoard = lastMove[0]
+    gLives = lastMove[1]
+    gFlagAndMine = lastMove[2]
+    gMines = lastMove[3]
+    gGame = lastMove[4]
+    renderBoard()
+    renderFlags()
+    renderLives()
+    renderSmiley()
+    console.log(gGame.allPlays)
+}
+
+// function onExterminator() {
+//
+// while (gMines>0)
+// for (var i = 0; i < 3; i++) {
+
+//     const randRowIndex = getRandomInt(0, size)
+//     const randColIndex = getRandomInt(0, size)
+//     }
 
 // }
 

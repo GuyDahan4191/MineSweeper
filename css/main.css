@@ -44,6 +44,20 @@ body {
     box-shadow: 0 2px 2px 0 black, 0 2px 2px 0 red;
 }
 
+.manually {
+    color: black;
+    height: 50Px;
+    width: 70px;
+    font-size: 15Px;
+    background-color: rgb(82, 189, 231);
+    border-radius: 20%;
+    margin-top: 10Px;
+    margin-bottom: 10Px;
+    text-align: center;
+    border-width: 1Px;
+    box-shadow: 0 2px 2px 0 black, 0 2px 2px 0 red;
+}
+
 .lives {
     text-align: center;
 }
@@ -125,20 +139,11 @@ td:hover {
     background-color: orangered;
 }
 
-.div-hint {
-    margin: 15Px 0px 15px 0px;
-}
-
 .btn-hint {
-
-    border-radius: 45%;
+    margin-top: 10Px;
+    border: 0px;
 }
 
-.btn-hint:hover {
-    background-color: #00f2ff;
-    cursor: pointer;
-    font-weight: bold;
-}
 
 h3 {
     text-align: center;
@@ -172,9 +177,27 @@ button:hover {
     font-weight: bold;
 }
 
+button .btn-hint:hover {
+    background-color: white;
+    cursor: pointer;
+}
+
 .btn-mega-hint {
     height: 50Px;
-    width: 120px;
+    width: 90Px;
+    font-size: 15Px;
+    background-color: lightblue;
+    border-radius: 10%;
+    margin-top: 10Px;
+    margin-bottom: 10Px;
+    text-align: center;
+    border-width: 1Px;
+    box-shadow: 0 2px 2px 0 black, 0 2px 2px 0 red;
+}
+
+.btn-safe-click {
+    height: 50Px;
+    width: 90Px;
     font-size: 15Px;
     background-color: lightblue;
     border-radius: 10%;
@@ -187,7 +210,7 @@ button:hover {
 
 .btn-Exterminator {
     height: 50Px;
-    width: 120px;
+    width: 182px;
     font-size: 15Px;
     background-color: lightblue;
     border-radius: 10%;
